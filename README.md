@@ -22,9 +22,9 @@ This guide details how the cucumber BDD framework works
 
 ## Runnning UI tests
 
-1. Supported platforms - Windows & Mac OS
+1. Supported platforms - Windows & Mac OS X
 
-2. Supported browsers - Chrome & Firefox (make sure atleast one of them is installed and updated to latest version)
+2. Supported browsers - Chrome (v80.0) & Firefox (v75.0) (make sure atleast one of them is installed)
 
 3. From the root directory of the project, run following cmd:
 

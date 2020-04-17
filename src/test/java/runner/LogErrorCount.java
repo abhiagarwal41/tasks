@@ -2,6 +2,7 @@ package runner;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,7 +14,7 @@ public class LogErrorCount {
     @Test
     public void printErrorCount() {
 
-        String filePath = "./task_1_application.log";
+        String filePath = System.getProperty("user.dir") + File.separator + "task_1_application.log";
         String content = null;
         try {
             content = new String(Files.readAllBytes(Paths.get(filePath)));
