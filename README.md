@@ -20,7 +20,7 @@ This guide details how the cucumber BDD framework works
 
 
 
-## Runnning tests
+## Runnning UI tests
 
 1. Supported platforms - Windows & Mac OS
 
@@ -42,7 +42,7 @@ This guide details how the cucumber BDD framework works
 6. A log file is also generated under 'logs' folder
 
 
-## Runnning tests using selenium grid + docker
+## Runnning UI tests using selenium grid + docker
 
 1. Install docker by visiting following link
    
@@ -64,3 +64,11 @@ This guide details how the cucumber BDD framework works
       ```
        mvn clean test -Dremote=true
      ```
+   
+## Running task 1 test
+
+1. From the root directory of the project, run following cmd:
+   
+    ```
+     mvn clean test -Dtest=LogErrorCount
+    ```   

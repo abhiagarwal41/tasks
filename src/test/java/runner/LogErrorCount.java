@@ -1,5 +1,7 @@
 package runner;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -7,21 +9,20 @@ import java.util.*;
 
 public class LogErrorCount {
 
-    public static void main(String[] args) {
 
+    @Test
+    public void printErrorCount() {
+
+        String filePath = "./task_1_application.log";
+        String content = null;
         try {
-            System.out.println(getErrorCount("./task_1_application.log"));
+            content = new String(Files.readAllBytes(Paths.get(filePath)));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static String getErrorCount(String filePath) throws IOException {
-
-        String content = new String(Files.readAllBytes(Paths.get(filePath)));
         List<String> lines = new ArrayList<>(Arrays.asList(content.split("\n")));
         Map<String, Integer> errCountMap = new HashMap<>();
-        String err = "";
+        String err;
         for (String line: lines) {
             if (line.contains("ERROR")) {
                 err = line.substring(line.indexOf("ERROR") + 6);
@@ -33,7 +34,7 @@ public class LogErrorCount {
             }
         }
 
-        return errCountMap.toString();
+        System.out.println(errCountMap.toString());
 
     }
 
