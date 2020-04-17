@@ -23,7 +23,7 @@ public class Init {
             System.setProperty("webdriver.chrome.driver", "./drivers/mac/chromedriver");
             System.setProperty("webdriver.gecko.driver", "./drivers/mac/geckodriver");
         } else if (operatingSystem.contains("WINDOWS")) {
-            System.setProperty("webdriver.chrome.driver", "./drivers/windows/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "./drivers/windows/chromedriver2.exe");
             System.setProperty("webdriver.gecko.driver", "./drivers/windows/geckodriver.exe");
         }
 
