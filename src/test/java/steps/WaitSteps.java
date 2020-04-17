@@ -5,6 +5,7 @@ import cucumber.api.java.en.When;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import utils.NuSuchPageException;
 
 import static pages.AbstractPage.getTestPage;
 import static pages.AbstractPage.setTestPage;
@@ -26,16 +27,11 @@ public class WaitSteps {
 				try {
 					return ((Long) ((JavascriptExecutor) driver).executeScript("return jQuery.active") == 0);
 				} catch (Exception e) {
-					// no jQuery present
 					return true;
 				}
 			};
 
-			ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
-				public Boolean apply(WebDriver driver) {
-					return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
-				}
-			};
+			ExpectedCondition<Boolean> pageLoadCondition = driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
 
 			getInstance().getWebDriverWait().until(pageLoadCondition);
 			getInstance().getWebDriverWait().until(jQueryLoad);
@@ -46,8 +42,7 @@ public class WaitSteps {
 		}
 		try {
 			setTestPage(pageName);
-			Thread.sleep(1000);
-		} catch (Exception e) {
+		} catch (NuSuchPageException e) {
 			doLogging(e.getMessage(), "FAIL", log, test);
 			fail(e.getMessage());
 		}
@@ -87,58 +82,4 @@ public class WaitSteps {
 		}
 	}
 
-
-	@When("I Wait until \"(.*?)\" is clickable$")
-	public static void waitUntilClickable(String elementName) {
-		doLogging("Waiting for clickability of : " + elementName, "INFO", log, test);
-		By locator = getTestPage().getElementLocator(elementName);
-		try {
-			 getInstance().getWebDriverWait().until(elementToBeClickable(locator));
-		}
-		catch(TimeoutException e) {
-			doLogging("Timeout exception waiting for clickability of : " + elementName, "FAIL", log, test);
-			fail("Timeout exception waiting for clickability of : " + elementName);
-		}
-
-	}
-
-
-
-	@When("I Wait until \"(.*?)\" is invisible$")
-	public void waitUntilInVisible(String elementName){
-		doLogging("Waiting for invisibility of : " + elementName, "INFO", log, test);
-		By locator = getTestPage().getElementLocator(elementName);
-		try {
-			getInstance().getWebDriverWait().until(invisibilityOfElementLocated(locator));
-		}catch(TimeoutException e) {
-			doLogging("Timeout exception waiting for invisibility of : " + elementName, "FAIL", log, test);
-			fail("Timeout exception waiting for invisibility of : " + elementName);
-		}
-	}
-
-	
-
-
-	@And("Wait until {string} has text {string}")
-	public void waitUntilHasText(String elementName, String text) {
-		By locator = getTestPage().getElementLocator(elementName);
-		try {
-			getInstance().getWebDriverWait().until(new ExpectedCondition<Object>() {
-				@NullableDecl
-				@Override
-				public Object apply(@NullableDecl WebDriver driver) {
-					try {
-						String elementText = driver.findElement(locator).getText().toLowerCase().trim();
-						return elementText.contains(text.toLowerCase().trim());
-					} catch (StaleElementReferenceException var3) {
-						return null;
-					}
-				}
-			});
-			doLogging("Text matched for " + elementName + " : " + text, "PASS", log, test);
-		}catch(TimeoutException e) {
-			doLogging("Timeout exception waiting for " + elementName + " to contain " + text, "FAIL", log, test);
-			fail("Timeout exception waiting for " + elementName + " to contain " + text);
-		}
-	}
 }

@@ -9,9 +9,11 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import utils.DriverType;
+import utils.Init;
 
 import static utils.Constants.*;
 import static utils.Functions.*;
+import static utils.Init.getInstance;
 
 
 @RunWith(Cucumber.class)
@@ -48,6 +50,7 @@ public class VwoTest {
 
     @AfterClass
     public static void afterClass() {
+        getInstance().stopApplication();
         log.info("Tests complete. Access html report from reports folder, access log from logs folder");
     }
 

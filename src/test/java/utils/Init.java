@@ -58,7 +58,8 @@ public class Init {
 
 
     public void stopApplication() {
-        driver.quit();
+        if (driver!=null)
+            driver.quit();
     }
 
     public WebDriverWait getWebDriverWait() {

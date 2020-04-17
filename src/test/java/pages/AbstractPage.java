@@ -2,6 +2,7 @@ package pages;
 
 
 import org.openqa.selenium.By;
+import utils.NuSuchPageException;
 
 
 public abstract class AbstractPage {
@@ -14,7 +15,7 @@ public abstract class AbstractPage {
 
     public abstract By getElementLocator(String name);
 
-    public static void setTestPage(String pageName) throws Exception {
+    public static void setTestPage(String pageName) throws NuSuchPageException {
 
         switch (pageName.toLowerCase()) {
             case "home_page":
@@ -24,7 +25,7 @@ public abstract class AbstractPage {
                 testPage = new HeatmapPage();
                 break;
             default:
-                throw new Exception("No such page exists: " + pageName);
+                throw new NuSuchPageException("No such page exists: " + pageName);
         }
     }
 
