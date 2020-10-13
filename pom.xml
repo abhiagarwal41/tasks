@@ -16,7 +16,7 @@
         <selenium-java>3.141.59</selenium-java>
         <cucumber-junit>4.4.0</cucumber-junit>
         <cucumber-java>4.4.0</cucumber-java>
-        <junit>4.11</junit>
+        <junit>4.13.1</junit>
         <freemarker>2.3.28</freemarker>
         <bson>2.3</bson>
         <log4j>1.2.17</log4j>
